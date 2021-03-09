@@ -8,7 +8,7 @@ let a = true;
 if(!process.argv[2]) return console.error(`Вы не указали ID!\nnode app.js <id>`);
 
 vk.updates.on('message_new', async (message) => {
-	client.api.messages.getByConversationMessageId({peer_id: message.peerId, conversation_message_ids: message.conversationMessageId}).then((result) => {
+	vk.api.messages.getByConversationMessageId({peer_id: message.peerId, conversation_message_ids: message.conversationMessageId}).then((result) => {
 		if(result.from_id == process.argv[2] && a) {
 			a = false;
 			vk.api.messages.setActivity({peer_id: message.peerId, type: "typing"});
