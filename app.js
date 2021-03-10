@@ -9,9 +9,9 @@ if(!process.argv[2]) return console.error(`Вы не указали ID!\nnode ap
 
 vk.updates.on('message_new', async (message) => {
 	vk.api.messages.getByConversationMessageId({peer_id: message.peerId, conversation_message_ids: message.conversationMessageId}).then((result) => {
-		if(result.from_id == process.argv[2] && a) {
+		if(result.items[0].from_id == process.argv[2] && a) {
 			a = false;
-			vk.api.messages.setActivity({peer_id: message.peerId, type: "typing"});
+			vk.api.messages.setActivity({peer_id: result.items[0].peer_id, type: "typing"});
 			setTimeout(() => {
 				a = true;
 				message.reply(ls_arr[Math.round(Math.random() * ls_arr.length-1)]);
